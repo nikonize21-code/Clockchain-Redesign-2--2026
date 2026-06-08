@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" data-variant="daylight" data-accent="forest" data-font="grotesk" data-bodyfont="inter" data-density="comfortable">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clockchain — Time you can prove</title>
+  <link rel="icon" type="image/png" href="assets/clockchain-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=1" />
+  <script>
+    (function(){
+      var root=document.documentElement;
+      function setV(v){
+        if(v==='hybrid'){root.setAttribute('data-variant','daylight');root.setAttribute('data-hybrid','1');}
+        else{root.setAttribute('data-variant',v);root.removeAttribute('data-hybrid');}
+      }
+      try{
+        var p=new URLSearchParams(location.search);
+        var v=p.get('v');
+        if(p.has('embed')){
+          window.__EMBED=true;
+          root.setAttribute('data-embed','1');
+          if(v==='eclipse'){setV('eclipse');root.setAttribute('data-accent','bright');}
+          else if(v==='hybrid'){setV('hybrid');root.setAttribute('data-accent','bright');}
+          else{setV('daylight');root.setAttribute('data-accent','forest');}
+          return;
+        }
+        var saved=JSON.parse(localStorage.getItem('clockchain-merged-tweaks')||'null');
+        if(saved){
+          if(saved.variant)setV(saved.variant);
+          if(saved.accent)root.setAttribute('data-accent',saved.accent);
+          if(saved.displayFont)root.setAttribute('data-font',saved.displayFont);
+          if(saved.density)root.setAttribute('data-density',saved.density);
+        }
+        if(v==='eclipse'||v==='hybrid'||v==='daylight'){
+          setV(v);
+          root.setAttribute('data-accent', v==='daylight' ? 'forest' : 'bright');
+        }
+      }catch(e){}
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <a class="nav-logo" href="#top" aria-label="Clockchain"><img src="assets/clockchain-logo-full.png" alt="Clockchain" /></a>
+    <ul class="nav-links">
+      <li><a href="#problem">Challenge</a></li>
+      <li><a href="#solution">Solution</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="https://services.clockchain.network/" target="_blank" rel="noopener">Testnet</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-socials" aria-label="Social links">
+        <a href="https://t.me/ClockchainTime" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M9.04 15.4 8.9 19.2c.4 0 .57-.17.77-.37l1.86-1.78 3.86 2.83c.71.39 1.21.18 1.4-.65l2.53-11.85c.23-1.04-.38-1.45-1.06-1.2L3.5 10.18c-1 .39-.99.94-.18 1.19l3.66 1.14 8.5-5.36c.4-.25.77-.11.47.14"/></svg></a>
+        <a href="https://discord.gg/clockchain" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+        <a href="https://x.com/clockchain_time" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.967 6.817H1.677l7.73-8.835L1.254 2.25h6.829l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      </div>
+      <a class="nav-cta" href="mailto:info@d4d.group">Contact<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- ===== HERO (cityscape skyline banner) ===== -->
+    <section class="hero" data-screen-label="01 Hero">
+      <img class="hero-img" src="assets/cityscape-wide-green.jpg" alt="" aria-hidden="true" />
+      <div class="hero-statement">
+        <p>Every financial transaction, legal agreement, and autonomous decision depends on time. Yet no trustless, verifiable global time standard exists. <span class="hs-em">Until now.</span></p>
+      </div>
+    </section>
+
+    <!-- ===== TICKER ===== -->
+    <div class="ticker">
+      <div class="ticker-inner">
+        <div class="ticker-item"><span class="ticker-label">Block Height</span><span class="ticker-val accent" id="t-height">—</span></div>
+        <div class="ticker-item"><span class="ticker-label">Clockchain UTC</span><span class="ticker-val" id="t-utc">—</span></div>
+        <div class="ticker-item"><span class="ticker-label">Block Rate</span><span class="ticker-val">1 / second</span></div>
+        <div class="ticker-item"><span class="ticker-label">Daily Blocks</span><span class="ticker-val">86,400</span></div>
+        <div class="ticker-item"><span class="ticker-label">Log Capacity</span><span class="ticker-val">1B / day</span></div>
+        <div class="ticker-item"><span class="ticker-label">Accuracy</span><span class="ticker-val">±1 second</span></div>
+      </div>
+    </div>
+
+    <!-- ===== INTRO (headline + copy, globe to the right) ===== -->
+    <section class="hero-intro reveal" data-screen-label="02 Intro">
+      <div class="hero-intro-inner">
+        <div class="eyebrow"><span class="live-dot"></span>Network live — anchoring time on-chain every second</div>
+        <h1>Time you can <span class="muted">prove.</span></h1>
+        <p class="hero-sub">The internet runs on clocks <strong>nobody can verify</strong>. Clockchain is a decentralized, cryptographically verifiable time standard — <strong>anchored on-chain every second</strong>.</p>
+        <div class="block-card hero-block-card">
+          <div class="bc-label"><span class="live-dot" style="width:6px;height:6px;"></span>Live block preview</div>
+          <div class="bc-row">
+            <div class="bc-row-label">Block Hash</div>
+            <div class="bc-row-val mono" id="bc-hash">0x4a8f3c1d9e2b…</div>
+          </div>
+          <div class="bc-two">
+            <div class="bc-row" style="margin-bottom:0"><div class="bc-row-label">Height</div><div class="bc-row-val" id="bc-height">—</div></div>
+            <div class="bc-row" style="margin-bottom:0"><div class="bc-row-label">Status</div><div class="bc-row-val"><span class="status-pill"><span class="live-dot" style="width:6px;height:6px;"></span>Verified</span></div></div>
+          </div>
+          <div class="bc-row" style="margin-top:8px;margin-bottom:0"><div class="bc-row-label">Timestamp</div><div class="bc-row-val" id="bc-ts" style="font-size:13px;">—</div></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true"><canvas id="globe-canvas"></canvas></div>
+    </section>
+
+    <!-- ===== SECTORS ===== -->
+    <div class="sectors">
+      <div class="container">
+        <p class="sectors-label">Built for sectors where the moment matters</p>
+        <div class="sectors-row">
+          <span class="sector-item">Finance</span>
+          <span class="sector-item">Supply Chain</span>
+          <span class="sector-item">Legal</span>
+          <span class="sector-item">Autonomous Systems</span>
+          <span class="sector-item">Web 3.0</span>
+          <span class="sector-item">Exchanges</span>
+          <span class="sector-item">Smart Contracts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PROBLEM / SOLUTION ===== -->
+    <section class="ps reveal split" id="problem" data-screen-label="02 Problem / Solution">
+      <div class="container">
+        <div class="ps-header">
+          <span class="tag">The Challenge</span>
+          <h2 class="h2">Existing protocols weren't built for <em>trust.</em></h2>
+          <p class="body-lg">Existing synchronization protocols — NTP, TAI, UTC, GPS — and timestamp standards like ISO 8601 and RFC 3339 are widely used, yet susceptible to manipulation and inaccuracy. They rely on centralized sources, can't be independently verified, and lack a unified global standard.</p>
+        </div>
+        <div class="ps-cols">
+          <div class="ps-col">
+            <span class="ps-col-tag prob">Problem</span>
+            <h3>Centralized time is unverifiable.</h3>
+            <ul class="ps-list">
+              <li>Reliance on centralized time servers creates single points of failure</li>
+              <li>No cryptographic proof that a timestamp hasn't been altered</li>
+              <li>Inconsistent standards across jurisdictions and systems</li>
+              <li>Significant risk in finance, legal, and supply-chain sectors</li>
+            </ul>
+          </div>
+          <div class="ps-col alt">
+            <span class="ps-col-tag sol">Solution</span>
+            <h3>Clockchain makes time verifiable.</h3>
+            <ul class="ps-list">
+              <li>A decentralized validator network eliminates any single authority</li>
+              <li>Every timestamp is cryptographically signed and provable on-chain</li>
+              <li>A single global time standard usable by any system worldwide</li>
+              <li>A permanent, auditable ledger — no record can ever be altered</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOLUTION (three primitives) ===== -->
+    <section class="ps reveal split" id="solution" data-screen-label="03 Solution">
+      <div class="container">
+        <div class="ps-header">
+          <span class="tag">The Solution</span>
+          <h2 class="h2">Three primitives. <em>One clock.</em></h2>
+          <p class="body-lg">A decentralized physical network of certified time sources, aggregated by AI, validated on-chain through Proof-of-Time consensus.</p>
+        </div>
+        <div class="numgrid">
+          <div class="numcard">
+            <div class="big-num">01</div>
+            <h4>Decentralized timestamping via DePIN.</h4>
+            <p>A physical infrastructure network of global certification authorities — certified atomic clocks, national time institutes, GPS, and atomic time sources — manages timestamping across regions, for accuracy no single authority can tamper with.</p>
+            <span class="pill">DePIN · Distributed sources</span>
+          </div>
+          <div class="numcard">
+            <div class="big-num">02</div>
+            <h4>AI + blockchain integration.</h4>
+            <p>AI models reconcile time data across heterogeneous sources, weighting and ranking inputs in real time, then propagating the validated state to nodes worldwide for instant consensus.</p>
+            <span class="pill">Adaptive consensus · Sub-second</span>
+          </div>
+          <div class="numcard">
+            <div class="big-num">03</div>
+            <h4>Proof-of-Time consensus.</h4>
+            <p>A new consensus mechanism that aggregates time data from all global sources and validates it on-chain — ensuring accuracy and consistency across every block, every second.</p>
+            <span class="pill">PoT · On-chain validation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== WHAT IS ===== -->
+    <section class="what reveal" id="what" data-screen-label="04 What is Clockchain">
+      <div class="container">
+        <div class="what-grid solo">
+          <div>
+            <span class="tag">What is Clockchain</span>
+            <h2 class="h2">A new type of <em>blockchain clock.</em></h2>
+            <p class="body-lg">A verifiable and immutable version of time, setting a new standard for global timekeeping and timestamping. With its decentralized structure and token economy, Clockchain is a democratic solution for the digital age — defining the future of time.</p>
+            <div class="stats">
+              <div class="stat"><div class="stat-n">1s</div><div class="stat-l">Timestamp accuracy</div></div>
+              <div class="stat"><div class="stat-n">10K</div><div class="stat-l">Logs per second</div></div>
+              <div class="stat"><div class="stat-n">1B+</div><div class="stat-l">Daily capacity</div></div>
+              <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Immutable record</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vision / Mission trio -->
+        <div class="numgrid two reveal" style="margin-top:72px;">
+          <div class="numcard">
+            <div class="big-num">VISION</div>
+            <h4>A foundational pillar of Web3 infrastructure.</h4>
+            <p>To secure and revolutionize the integrity of time-related data through blockchain technology — enabling autonomous systems to operate with enhanced accountability, transparency, and trust.</p>
+          </div>
+          <div class="numcard">
+            <div class="big-num">MISSION</div>
+            <h4>A new global standard for time.</h4>
+            <p>Clockchain is a time-focused blockchain network. Its mission is to create a new global standard for accuracy and security in timekeeping and timestamping — and integrate these innovations into forthcoming Web 3.0 applications.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services reveal split" id="services" data-screen-label="05 Services">
+      <div class="container">
+        <div class="services-head">
+          <span class="tag">Services</span>
+          <h2 class="h2">Three services. <em>One clock.</em></h2>
+          <p class="body-lg">A complete toolkit for any product that depends on the integrity of a moment — easy to integrate, instantly verifiable, decentralized by default.</p>
+        </div>
+        <div class="svc-list">
+          <article class="svc">
+            <div class="svc-n">01</div>
+            <p class="svc-q">"Have you ever needed an easy way to log your data on a blockchain — and authenticate it instantly from anywhere in the world?"</p>
+            <div class="svc-body">
+              <h4>Logging, Authentication &amp; Timestamps</h4>
+              <p>Timestamp and log data every second onto Clockchain in a simple, decentralized, cost-effective way. Instantly authenticate from any device, anywhere — and never be fooled again.</p>
+            </div>
+          </article>
+          <article class="svc">
+            <div class="svc-n">02</div>
+            <p class="svc-q">"Are you worried your scheduled smart contracts won't execute on time in critical situations?"</p>
+            <div class="svc-body">
+              <h4>Smart Contract Scheduling &amp; Execution</h4>
+              <p>Seamlessly schedule and execute critical services with the first verifiable blockchain time — a scheduling and execution system you can trust. Never miss a deadline again.</p>
+            </div>
+          </article>
+          <article class="svc">
+            <div class="svc-n">03</div>
+            <p class="svc-q">"Do you ever wonder if the timestamp you're using is actually correct?"</p>
+            <div class="svc-body">
+              <h4>Timestamp API — the first trusted, verifiable blockchain timestamp</h4>
+              <p>UTC, GPS, TAI, ISO 8601, RFC 3339 are inconsistent and unreliable. With Clockchain's decentralized blockchain-based timestamp API, access, verify, and stamp anything — every second, on any device. Always know what time it is.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== HOW IT WORKS ===== -->
+    <section class="how reveal split" data-screen-label="06 How it works">
+      <div class="container">
+        <div class="how-head">
+          <span class="tag">How It Works</span>
+          <h2 class="h2">Precision, decentralized,<br/><em>every second.</em></h2>
+        </div>
+        <div class="how-steps">
+          <div class="step">
+            <div class="step-n">01</div>
+            <div class="step-title">Atomic time sources<br/>are aggregated</div>
+            <div class="step-body">Certified atomic clocks, national time institutes, and GPS sources feed the Clockchain validation layer — redundant, high-accuracy input that no single authority can manipulate.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">02</div>
+            <div class="step-title">A unique block is<br/>signed every second</div>
+            <div class="step-body">The network produces a cryptographically signed block each second — containing the verified timestamp, a hash of the prior block, and a consensus signature from the distributed validator set.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">03</div>
+            <div class="step-title">Records are written<br/>to an immutable ledger</div>
+            <div class="step-body">Every block is permanently recorded on-chain. The ledger can't be altered, forged, or rolled back — creating an auditable history of time any party can verify independently.</div>
+          </div>
+          <div class="step">
+            <div class="step-n">04</div>
+            <div class="step-title">Applications access<br/>verifiable time via API</div>
+            <div class="step-body">Businesses and developers integrate through a simple API. Every response includes an on-chain proof — a verifiable receipt confirming accuracy and global consistency.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOKEN ECONOMY (dark feature) ===== -->
+    <section class="feature band-dark reveal split" data-screen-label="07 Token economy">
+      <div class="container">
+        <div class="feature-head">
+          <span class="tag">The Token Economy</span>
+          <h2 class="h2">Democratic by design.</h2>
+          <p class="body-lg">Clockchain's decentralized structure and token economy make global timekeeping a shared resource — governed by its participants, not a single authority.</p>
+        </div>
+        <div class="feature-row">
+          <div class="feature-cell">
+            <div class="feature-cell-n">Governance</div>
+            <div class="feature-cell-title">Community-governed protocol</div>
+            <div class="feature-cell-body">Token holders participate in network decisions, ensuring no single entity controls the global time standard.</div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-cell-n">Incentives</div>
+            <div class="feature-cell-title">Validators are rewarded</div>
+            <div class="feature-cell-body">Participants who contribute accurate time data and maintain network uptime earn token rewards for their service.</div>
+          </div>
+          <div class="feature-cell">
+            <div class="feature-cell-n">Access</div>
+            <div class="feature-cell-title">Open and interoperable</div>
+            <div class="feature-cell-body">Any application, blockchain, or enterprise can access Clockchain time through the open API — no permission required.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BLOG ===== -->
+    <section class="blog reveal split" id="blog" data-screen-label="08 Blog">
+      <div class="container">
+        <div class="section-head-c">
+          <span class="tag">Clockchain Blog</span>
+          <h2 class="h2">Writing from <em>the team.</em></h2>
+        </div>
+        <a class="blog-card" href="blog/brief-history-of-time.html">
+          <div class="blog-img"><img src="assets/blog/big-bang-lead.png" alt="Artistic rendering of the Big Bang — a singularity expanding into spacetime" /></div>
+          <div class="blog-body">
+            <div class="blog-meta"><span class="accent">Clockchain Team</span><span>·</span><span>May 25, 2026</span></div>
+            <h3>A history of time.</h3>
+            <p>From a singularity 13.8 billion years ago to a blockchain-native global time standard in 2026 — fifteen moments that shaped how we measure when.</p>
+            <span class="read-link">Read post<svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== NEWS & MEDIA ===== -->
+    <section class="news reveal split" id="news" data-screen-label="09 News &amp; Media">
+      <div class="container">
+        <div class="section-head-c">
+          <span class="tag">Latest · Updated 2026.02.24</span>
+          <h2 class="h2">News &amp; <em>Media.</em></h2>
+        </div>
+
+        <div class="news-body">
+        <div class="subhead">
+          <div class="subhead-l"><span class="subhead-num">01</span><h3>News</h3><span class="subhead-pill">Press Releases</span></div>
+          <div class="subhead-rule"></div>
+          <span class="subhead-count">6 releases</span>
+        </div>
+
+        <article class="pr-lead" data-article="pr-testnet-2026">
+          <div class="pr-meta"><span>Press Release</span><span>·</span><span>February 24, 2026</span></div>
+          <span class="pr-tag">Latest release</span>
+          <h4>Clockchain Opens Public Testnet, Introducing a New Blockchain-Based Global Time Standard</h4>
+          <p class="dek">The world's first blockchain-based time oracle is now open to developers — combining atomic-clock precision with on-chain verifiability.</p>
+        </article>
+
+        <ul class="pr-list">
+          <li class="pr-item" data-article="pr-eth-polygon-2025"><span class="pr-date">June 3, 2025</span><span class="pr-title">Clockchain to Schedule and Execute Smart Contracts on Ethereum and Polygon</span><span class="pr-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></li>
+          <li class="pr-item" data-article="pr-time-oracle-2025"><span class="pr-date">January 22, 2025</span><span class="pr-title">Clockchain Network Announces New Time Oracle</span><span class="pr-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></li>
+          <li class="pr-item" data-article="pr-sf-tech-week-2024"><span class="pr-date">October 16, 2024</span><span class="pr-title">Clockchain Network Unveils New Timestamping Solutions at SF Tech Week</span><span class="pr-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></li>
+          <li class="pr-item" data-article="pr-patent-2024"><span class="pr-date">August 13, 2024</span><span class="pr-title">Clockchain Awarded Patent for World's First Blockchain Clock</span><span class="pr-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></li>
+          <li class="pr-item" data-article="pr-european-forum-2024"><span class="pr-date">June 24, 2024</span><span class="pr-title">D4D Clockchain Technology Debuts at European Timekeeping Forum</span><span class="pr-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span></li>
+        </ul>
+
+        <div class="subhead">
+          <div class="subhead-l"><span class="subhead-num">02</span><h3>Media</h3><span class="subhead-pill">Press coverage</span></div>
+          <div class="subhead-rule"></div>
+          <span class="subhead-count">3 entries</span>
+        </div>
+
+        <div class="media-grid">
+          <article class="media-card lead" data-article="blockzeit-testnet">
+            <div class="media-meta"><span>Blockzeit</span><span>·</span><span>Feb 24, 2026</span></div>
+            <div class="media-mark">Bz</div>
+            <span class="media-tag">Featured coverage</span>
+            <h4>Clockchain Launches Public Testnet — Here's What It Offers</h4>
+            <p class="dek">Blockzeit profiles the public testnet launch and the three foundational services now live for developers.</p>
+            <span class="media-read">Read article<svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+          </article>
+          <article class="media-card" data-article="mexc-testnet">
+            <div class="media-meta"><span>MEXC</span><span>·</span><span>Feb 24, 2026</span></div>
+            <div class="media-mark">Mx</div>
+            <span class="media-tag">Exchange coverage</span>
+            <h4>Clockchain Unveils Testnet for Verifiable Blockchain Time</h4>
+            <span class="media-read">Read article<svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+          </article>
+          <article class="media-card" data-article="blockchainwire-testnet">
+            <div class="media-meta"><span>Blockchain Wire</span><span>·</span><span>Feb 24, 2026</span></div>
+            <div class="media-mark">BW</div>
+            <span class="media-tag">Press release</span>
+            <h4>Clockchain Opens Public Testnet — A New Global Time Standard</h4>
+            <span class="media-read">Read article<svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></span>
+          </article>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta reveal" data-screen-label="10 CTA">
+      <div class="container">
+        <div class="cta-card">
+          <span class="tag">Join the Network</span>
+          <h2>Build with <em>time</em> you can prove.</h2>
+          <p class="sub">Integrate the Clockchain Timestamp API, schedule a smart contract, or run a node. The testnet is open — start in minutes.</p>
+          <div class="cta-actions">
+            <a class="btn btn-primary" href="https://services.clockchain.network/" target="_blank" rel="noopener">Start building<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+            <a class="btn btn-outline" style="border-color:rgba(255,255,255,0.3);color:#fff;" href="mailto:info@d4d.group">Talk to the team</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container-wide">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="assets/clockchain-logo-full.png" alt="Clockchain" />
+          <p class="footer-addr">D4D Sàrl<br/>Rue des Beaux-Arts 8<br/>2000 Neuchâtel · Switzerland<br/><br/>info@d4d.group</p>
+        </div>
+        <div class="footer-col"><h5>Protocol</h5><ul><li><a href="#solution">Solution</a></li><li><a href="#services">Services</a></li><li><a href="#what">What is Clockchain</a></li></ul></div>
+        <div class="footer-col"><h5>Resources</h5><ul><li><a href="#news">News</a></li><li><a href="#blog">Blog</a></li><li><a href="#">Documentation</a></li><li><a href="#">Whitepaper</a></li><li><a href="#">Patent · US 12,022,015</a></li></ul></div>
+        <div class="footer-col"><h5>Network</h5><ul><li><a href="https://services.clockchain.network/" target="_blank" rel="noopener">Services</a></li><li><a href="#">Status</a></li><li><a href="#">Node operators</a></li><li><a href="mailto:info@d4d.group">Contact</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 D4D Clockchain · All rights reserved</span>
+        <div class="footer-socials">
+          <a href="https://t.me/ClockchainTime" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M9.04 15.4 8.9 19.2c.4 0 .57-.17.77-.37l1.86-1.78 3.86 2.83c.71.39 1.21.18 1.4-.65l2.53-11.85c.23-1.04-.38-1.45-1.06-1.2L3.5 10.18c-1 .39-.99.94-.18 1.19l3.66 1.14 8.5-5.36c.4-.25.77-.11.47.14"/></svg></a>
+          <a href="https://discord.gg/clockchain" target="_blank" rel="noopener" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+          <a href="https://x.com/clockchain_time" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.967 6.817H1.677l7.73-8.835L1.254 2.25h6.829l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+          <a href="mailto:info@d4d.group" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M2 5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v.4l8 5.6 8-5.6V5.5L12 11Z"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Article modal ===== -->
+  <div class="amodal" id="amodal" role="dialog" aria-modal="true">
+    <div class="amodal-backdrop" data-close></div>
+    <div class="amodal-card">
+      <div class="amodal-head">
+        <div class="amodal-meta"><span id="am-source">—</span><span>·</span><span id="am-date">—</span><span>·</span><span class="accent" id="am-tag">—</span></div>
+        <button class="amodal-close" data-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="amodal-body"><h2 id="am-title">—</h2><div id="am-content"></div></div>
+    </div>
+  </div>
+
+  <div id="tweaks-root"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/lines/LineSegmentsGeometry.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/lines/LineGeometry.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/lines/LineSegments2.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/lines/Line2.js"></script>
+  <script src="https://unpkg.com/three@0.128.0/examples/js/lines/LineMaterial.js"></script>
+  <script src="globe.js?v=2"></script>
+  <script src="app.js?v=1"></script>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="tweaks-app.jsx"></script>
+</body>
+</html>

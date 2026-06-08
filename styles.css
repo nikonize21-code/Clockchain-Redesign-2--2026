@@ -230,7 +230,7 @@ section{width:100%;}
 .hero-intro #globe-canvas{display:block;}
 /* live block card sits below the copy, in the left column (clear of the globe) */
 .hero-intro .hero-block-card{
-  margin-top:34px;width:300px;max-width:100%;
+  margin-top:34px;width:100%;max-width:360px;
   box-shadow:0 30px 70px -30px rgba(0,0,0,0.4);
 }
 @media(max-width:900px){
@@ -434,7 +434,7 @@ section{width:100%;}
 .ps-col{background:var(--surface);padding:52px 44px;}
 .ps-col.alt{background:var(--ink);}
 .ps-col-tag{font-family:var(--f-mono);font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:18px;display:inline-block;}
-.ps-col-tag.prob{color:#c2671c;}
+.ps-col-tag.prob{color:var(--accent);}
 .ps-col-tag.sol{color:var(--accent);}
 .ps-col h3{font-family:var(--f-display);font-size:clamp(21px,2.4vw,28px);font-weight:600;letter-spacing:-0.025em;line-height:1.15;margin-bottom:18px;color:var(--fg);}
 .ps-col.alt h3{color:#fff;}

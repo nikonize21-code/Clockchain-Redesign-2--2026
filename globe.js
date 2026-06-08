@@ -225,6 +225,10 @@
         lctx.font='9px Inter,sans-serif';var timeW=lctx.measureText(timeStr).width,tzW=lctx.measureText(tzStr).width;
         var boxW=Math.max(nameW,timeW,tzW)+14,boxH=42;
         var bx=labelAnchor==='left'?op.x+4:op.x-4-boxW,by=op.y-boxH/2,rx=6;
+        /* keep the whole label box inside the canvas so edge cities don't get clipped */
+        var pad=6;
+        bx=Math.max(pad,Math.min(bx,W-boxW-pad));
+        by=Math.max(pad,Math.min(by,H-boxH-pad));
         lctx.fillStyle=pillBg;lctx.strokeStyle=accentCol.replace(')',' / 0.4)').replace('rgb','rgba');lctx.lineWidth=1;
         try{lctx.strokeStyle=accentCol;}catch(e){}
         lctx.beginPath();

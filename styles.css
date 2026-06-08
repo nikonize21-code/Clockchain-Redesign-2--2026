@@ -165,6 +165,12 @@ section{width:100%;}
 :root[data-variant="eclipse"] .nav:not(.scrolled) .nav-socials a{color:rgba(255,255,255,0.78);}
 :root[data-variant="eclipse"] .nav:not(.scrolled) .nav-socials a:hover{color:#fff;}
 .nav-socials svg{width:16px;height:16px;fill:currentColor;}
+/* brand-colored social icons */
+.nav-socials a[aria-label="Telegram"] svg{fill:#229ED9;}
+.nav-socials a[aria-label="Discord"] svg{fill:#5865F2;}
+.nav-socials a[aria-label="X"] svg{fill:#000;}
+.nav-socials a:hover svg{opacity:.82;}
+:root[data-variant="eclipse"] .nav-socials a[aria-label="X"] svg{fill:#fff;}
 .nav-cta{
   display:inline-flex;align-items:center;gap:6px;
   font-size:13px;font-weight:500;
@@ -581,6 +587,11 @@ section{width:100%;}
 .footer-socials a{color:var(--fg-3);transition:color .15s;}
 .footer-socials a:hover{color:var(--accent);}
 .footer-socials svg{width:17px;height:17px;fill:currentColor;}
+.footer-socials a[aria-label="Telegram"] svg{fill:#229ED9;}
+.footer-socials a[aria-label="Discord"] svg{fill:#5865F2;}
+.footer-socials a[aria-label="X"] svg{fill:var(--fg);}
+.footer-socials a[aria-label="Email"] svg{fill:var(--fg-3);}
+.footer-socials a:hover svg{opacity:.82;}
 @media(max-width:760px){.footer-top{grid-template-columns:1fr 1fr;}}
 
 /* ============ Reveal animation ============ */

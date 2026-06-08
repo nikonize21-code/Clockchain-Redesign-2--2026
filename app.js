@@ -55,7 +55,12 @@
     'pr-european-forum-2024':'https://www.prweb.com/releases/d4d-clockchain-technology-debuts-at-european-timekeeping-forum-302178744.html',
     'blockzeit-testnet':'https://blockzeit.com/clockchain-launches-public-testnet-heres-what-it-offers/',
     'mexc-testnet':'https://www.mexc.co/news/786064',
-    'blockchainwire-testnet':'https://www.blockchainwire.io/press-release/clockchain-opens-public-testnet-introducing-a-new-blockchain-based-global-time-standard'
+    'blockchainwire-testnet':'https://www.blockchainwire.io/press-release/clockchain-opens-public-testnet-introducing-a-new-blockchain-based-global-time-standard',
+    'medium-verifiable-time':'https://medium.com/@victoruzogba/the-role-of-verifiable-time-in-smart-contract-execution-7384b1394bb4',
+    'neuchatel-web3':'https://neuchateleconomie.ch/clockchain-revolutionner-la-securite-du-temps-dans-lecosysteme-web3-0/',
+    'cointrust-patent':'https://www.cointrust.com/market-news/d4d-sarls-innovative-blockchain-clock-secures-key-patent',
+    'companyglance-patent':'https://companyglance.com/news/d4d-sarl-gains-patent-for-clockchain-groundbreaking-blockchain-clock',
+    'companyglance-unveils':'https://companyglance.com/news/d4d-sarl-unveils-clockchain-technology'
   };
   function openArticle(id){
     var a=ARTICLES[id];if(!a||!modal)return;

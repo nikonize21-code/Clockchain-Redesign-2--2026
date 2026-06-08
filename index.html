@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=6" />
   <script>
     (function(){
       var root=document.documentElement;
@@ -69,9 +69,10 @@
 
   <main id="top">
 
-    <!-- ===== HERO (cityscape skyline banner) ===== -->
+    <!-- ===== HERO (NYC day-to-night timelapse loop) ===== -->
     <section class="hero" data-screen-label="01 Hero">
-      <img class="hero-img" src="assets/cityscape-wide-green.jpg" alt="" aria-hidden="true" />
+      <video class="hero-video" src="assets/newyork-timelapse.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+      <div class="hero-scrim" aria-hidden="true"></div>
       <div class="hero-statement">
         <p>Every financial transaction, legal agreement, and autonomous decision depends on time. Yet no trustless, verifiable global time standard exists. <span class="hs-em">Until now.</span></p>
       </div>
@@ -327,7 +328,7 @@
       <div class="container">
         <div class="section-head-c">
           <span class="tag">New Post</span>
-          <h2 class="h2">Latest <em>Posts.</em></h2>
+          <h2 class="h2">Clockchain <em>Blog.</em></h2>
         </div>
         <div class="blog-list">
         <a class="blog-card" href="blog/brief-history-of-time.html">
@@ -383,14 +384,14 @@
         </ul>
 
         <div class="subhead">
-          <div class="subhead-l"><span class="subhead-num">02</span><h3>Media</h3><span class="subhead-pill">Press coverage</span></div>
+          <div class="subhead-l"><span class="subhead-num">02</span><h3>Media</h3></div>
           <div class="subhead-rule"></div>
           <span class="subhead-count">8 entries</span>
         </div>
 
         <div class="media-grid">
           <article class="media-card lead" data-article="blockzeit-testnet">
-            <div class="media-thumb"><span class="media-tag">Featured coverage</span><img src="assets/media/blockzeit.png" alt="Blockzeit artwork: clock faces linked by a chain around the Clockchain mark" /></div>
+            <div class="media-thumb"><img src="assets/media/blockzeit.png" alt="Blockzeit artwork: clock faces linked by a chain around the Clockchain mark" /></div>
             <div class="media-body">
               <span class="media-source">Blockzeit.com</span>
               <h4>Clockchain Launches Public Testnet — Here's What It Offers</h4>
@@ -399,7 +400,7 @@
             </div>
           </article>
           <article class="media-card" data-article="mexc-testnet">
-            <div class="media-thumb panel-light contain"><span class="media-tag">Exchange coverage</span><img src="assets/media/mexc.png" alt="MEXC logo" /></div>
+            <div class="media-thumb panel-light contain"><img src="assets/media/mexc.png" alt="MEXC logo" /></div>
             <div class="media-body">
               <span class="media-source">Mexc.co</span>
               <h4>Clockchain Unveils Testnet for Verifiable Blockchain Time</h4>
@@ -407,7 +408,7 @@
             </div>
           </article>
           <article class="media-card" data-article="blockchainwire-testnet">
-            <div class="media-thumb panel-light contain"><span class="media-tag">Press release</span><img src="assets/media/blockchainwire.png" alt="Blockchain Wire logo" /></div>
+            <div class="media-thumb panel-light contain"><img src="assets/media/blockchainwire.png" alt="Blockchain Wire logo" /></div>
             <div class="media-body">
               <span class="media-source">Blockchainwire.io</span>
               <h4>Clockchain Opens Public Testnet — A New Global Time Standard</h4>
@@ -415,7 +416,7 @@
             </div>
           </article>
           <article class="media-card" data-article="medium-verifiable-time">
-            <div class="media-thumb panel-light contain"><span class="media-tag">Op-ed</span><img src="assets/media/medium.png" alt="Medium logo" /></div>
+            <div class="media-thumb panel-light contain"><img src="assets/media/medium.png" alt="Medium logo" /></div>
             <div class="media-body">
               <span class="media-source">Medium.com</span>
               <h4>The Role of Verifiable Time in Smart Contract Execution</h4>
@@ -423,7 +424,7 @@
             </div>
           </article>
           <article class="media-card" data-article="neuchatel-web3">
-            <div class="media-thumb"><span class="media-tag">Regional feature</span><img src="assets/media/neuchatel.png" alt="Two members of the Clockchain team seated by a fountain in Neuchâtel" /></div>
+            <div class="media-thumb"><img src="assets/media/neuchatel.png" alt="Two members of the Clockchain team seated by a fountain in Neuchâtel" /></div>
             <div class="media-body">
               <span class="media-source">Neuchateleconomie.ch</span>
               <h4>Clockchain: Revolutionizing time security in the Web 3.0 ecosystem from Neuchâtel</h4>
@@ -431,7 +432,7 @@
             </div>
           </article>
           <article class="media-card" data-article="cointrust-patent">
-            <div class="media-thumb panel-dark contain"><span class="media-tag">Patent news</span><img src="assets/media/cointrust.png" alt="CoinTrust logo" /></div>
+            <div class="media-thumb panel-dark contain"><img src="assets/media/cointrust.png" alt="CoinTrust logo" /></div>
             <div class="media-body">
               <span class="media-source">Cointrust.com</span>
               <h4>D4D Sàrl's Innovative Blockchain Clock Secures Key Patent</h4>
@@ -439,7 +440,7 @@
             </div>
           </article>
           <article class="media-card" data-article="companyglance-patent">
-            <div class="media-thumb panel-light contain"><span class="media-tag">Patent news</span><img src="assets/media/companyglance.png" alt="CompanyGlance logo" /></div>
+            <div class="media-thumb panel-light contain"><img src="assets/media/companyglance.png" alt="CompanyGlance logo" /></div>
             <div class="media-body">
               <span class="media-source">Companyglance.com</span>
               <h4>D4D Sàrl Gains Patent for Clockchain's Groundbreaking Blockchain Clock</h4>
@@ -447,7 +448,7 @@
             </div>
           </article>
           <article class="media-card" data-article="companyglance-unveils">
-            <div class="media-thumb panel-light contain"><span class="media-tag">Technology</span><img src="assets/media/companyglance.png" alt="CompanyGlance logo" /></div>
+            <div class="media-thumb panel-light contain"><img src="assets/media/companyglance.png" alt="CompanyGlance logo" /></div>
             <div class="media-body">
               <span class="media-source">Companyglance.com</span>
               <h4>D4D Sàrl Unveils Clockchain Technology</h4>

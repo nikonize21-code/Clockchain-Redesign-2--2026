@@ -162,6 +162,13 @@ section{width:100%;}
 /* light text over the dark eclipse page */
 :root[data-variant="eclipse"] .nav:not(.scrolled) .nav-links a{color:rgba(255,255,255,0.86);}
 :root[data-variant="eclipse"] .nav:not(.scrolled) .nav-links a:hover{color:#fff;}
+/* light nav text while sitting over the dark video hero (top of page, before scroll);
+   reverts to the default dark links once .scrolled (over the white page) */
+.nav:not(.scrolled) .nav-links a{
+  color:rgba(255,255,255,0.84);
+  text-shadow:0 1px 12px rgba(0,0,0,0.45);
+}
+.nav:not(.scrolled) .nav-links a:hover{color:#fff;}
 .nav-right{display:flex;align-items:center;gap:18px;}
 .nav-socials{display:flex;align-items:center;gap:14px;}
 .nav-socials a{color:var(--fg-3);transition:color .2s;}
@@ -173,6 +180,8 @@ section{width:100%;}
 .nav-socials a[aria-label="Telegram"] svg{fill:#229ED9;}
 .nav-socials a[aria-label="Discord"] svg{fill:#5865F2;}
 .nav-socials a[aria-label="X"] svg{fill:#000;}
+/* X icon is black \u2014 flip to white while over the dark video hero (before scroll) */
+.nav:not(.scrolled) .nav-socials a[aria-label="X"] svg{fill:#fff;}
 .nav-socials a:hover svg{opacity:.82;}
 :root[data-variant="eclipse"] .nav-socials a[aria-label="X"] svg{fill:#fff;}
 .nav-cta{
@@ -186,22 +195,33 @@ section{width:100%;}
 .nav-cta svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.4;}
 @media(max-width:860px){ .nav-links{display:none;} }
 
-/* ============ HERO (full-bleed cityscape skyline) ============ */
+/* ============ HERO (full-bleed NYC timelapse video) ============ */
 .hero{
   padding-top:58px;
   min-height:100vh;
   display:flex;align-items:center;
   position:relative;overflow:hidden;
-  background:#ffffff;
+  background:#070b0a;
   isolation:isolate;
 }
-/* skyline still — anchored along the bottom, page-width, white blends into the hero */
-.hero-img{
-  position:absolute;left:0;right:0;bottom:0;z-index:0;
-  width:100%;height:auto;
+/* video fills the hero, day-to-night loop */
+.hero-video{
+  position:absolute;inset:0;z-index:0;
+  width:100%;height:100%;object-fit:cover;object-position:center 35%;
   pointer-events:none;user-select:none;
 }
-/* ===== HERO STATEMENT (dark text over the light skyline, top-center) ===== */
+/* readability scrim — darker top (statement) & bottom (blends into dark ticker) */
+.hero-scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,
+      rgba(7,11,10,0.72) 0%,
+      rgba(7,11,10,0.34) 26%,
+      rgba(7,11,10,0.12) 48%,
+      rgba(7,11,10,0.40) 78%,
+      rgba(7,11,10,0.92) 100%);
+}
+/* ===== HERO STATEMENT (light text over the video, top-center) ===== */
 .hero-statement{
   position:absolute;top:clamp(120px,17vh,190px);left:50%;transform:translateX(-50%);
   z-index:2;width:min(920px,86%);text-align:center;pointer-events:none;
@@ -209,13 +229,14 @@ section{width:100%;}
 .hero-statement p{
   font-family:var(--f-display);
   font-size:clamp(20px,2.5vw,34px);font-weight:500;line-height:1.34;letter-spacing:-0.02em;
-  color:#10211a;text-wrap:balance;
+  color:#ffffff;text-wrap:balance;
+  text-shadow:0 1px 28px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
 }
-.hero-statement .hs-em{color:var(--accent);}
+.hero-statement .hs-em{color:#3ee07f;}
 
-/* scroll hint reads dark over the light hero */
-.hero .hero-scroll{color:var(--fg-3);}
-.hero .scroll-line{background:linear-gradient(rgba(16,33,26,0.55),transparent);}
+/* scroll hint reads light over the video */
+.hero .hero-scroll{color:rgba(255,255,255,0.7);}
+.hero .scroll-line{background:linear-gradient(rgba(255,255,255,0.7),transparent);}
 
 /* ===== INTRO (headline + copy on the left, globe on the right) ===== */
 .hero-intro{

@@ -51,9 +51,9 @@ function TweaksApp(){
       <TweakRadio label="Variant" value={t.variant}
         options={['daylight','eclipse','hybrid']}
         onChange={(v)=>setTweak('variant', v)} />
-      <TweakColor label="Accent" value={t.accent === 'forest' ? '#2d7a4f' : t.accent === 'bright' ? '#00c000' : '#0a9d6e'}
-        options={['#2d7a4f','#00c000','#0a9d6e']}
-        onChange={(hex)=>setTweak('accent', hex === '#2d7a4f' ? 'forest' : hex === '#00c000' ? 'bright' : 'emerald')} />
+      <TweakColor label="Accent" value={t.accent === 'forest' ? '#0a9d44' : t.accent === 'bright' ? '#00cc00' : '#0a9d6e'}
+        options={['#0a9d44','#00cc00','#0a9d6e']}
+        onChange={(hex)=>setTweak('accent', hex === '#0a9d44' ? 'forest' : hex === '#00cc00' ? 'bright' : 'emerald')} />
 
       <TweakSection label="Typography" />
       <TweakRadio label="Headlines" value={t.displayFont}

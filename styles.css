@@ -9,12 +9,12 @@
 
 :root{
   /* ---- Brand constants ---- */
-  --brand-green:#00c000;            /* Clockchain bright mark green */
+  --brand-green:#00cc00;            /* Clockchain logo mark green (matches assets/clockchain-logo) */
   --forest:#2d7a4f;                 /* reference refined green */
   --forest-mid:#3a9e65;
 
   /* ---- Accent (overridable by data-accent) ---- */
-  --accent:var(--forest);
+  --accent:var(--brand-green);
   --accent-soft:color-mix(in oklab, var(--accent), transparent 90%);
   --accent-line:color-mix(in oklab, var(--accent), transparent 70%);
 
@@ -45,17 +45,17 @@
   --grid-line:rgba(0,0,0,0.035);
   --shadow:0 1px 2px rgba(0,0,0,.04), 0 12px 40px -24px rgba(0,0,0,.25);
   --glass:rgba(255,255,255,0.72);
-  --globe-grid:#3fc489;
-  --globe-line:#37cf8e;
+  --globe-grid:var(--accent);
+  --globe-line:var(--accent);
   --globe-land:#5aa5e1;
   --globe-base:#1d1d1f;
   color-scheme:light;
 }
 
 /* ===== Accent options ===== */
-:root[data-accent="bright"]{ --accent:var(--brand-green); }
-:root[data-accent="forest"]{ --accent:var(--forest); }
-:root[data-accent="emerald"]{ --accent:#0a9d6e; }
+:root[data-accent="bright"]{ --accent:var(--brand-green); }   /* exact logo green #00cc00 (bright) */
+:root[data-accent="forest"]{ --accent:#0a9d44; }              /* slightly darker, refined green (default) */
+:root[data-accent="emerald"]{ --accent:#0a9d6e; }             /* deeper emerald */
 
 /* ===== Font options ===== */
 :root[data-font="grotesk"]{ --f-display:'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
@@ -88,7 +88,7 @@
   --accent:var(--brand-green);
   color-scheme:dark;
 }
-:root[data-variant="eclipse"][data-accent="forest"]{ --accent:#52c98a; }
+:root[data-variant="eclipse"][data-accent="forest"]{ --accent:#1fb55a; }
 :root[data-variant="eclipse"][data-accent="emerald"]{ --accent:#1fc78c; }
 
 /* ===== HYBRID: light base, but statement + how-it-works + sectors go dark (true blend) ===== */
@@ -232,7 +232,7 @@ section{width:100%;}
   color:#ffffff;text-wrap:balance;
   text-shadow:0 1px 28px rgba(0,0,0,0.55), 0 1px 4px rgba(0,0,0,0.4);
 }
-.hero-statement .hs-em{color:#3ee07f;}
+.hero-statement .hs-em{color:var(--brand-green);}
 
 /* scroll hint reads light over the video */
 .hero .hero-scroll{color:rgba(255,255,255,0.7);}
@@ -245,7 +245,8 @@ section{width:100%;}
   position:relative;overflow:hidden;
   background:var(--bg);
 }
-.hero-intro-inner{position:relative;z-index:2;padding:80px 0 80px 214px;max-width:620px;}
+/* indent only the copy column to the section rail; the globe column keeps the full right side */
+.hero-intro-inner{position:relative;z-index:2;padding:80px 0;max-width:620px;margin-left:max(48px, calc((100vw - 1520px) / 2 + 48px));}
 .hero-intro h1{
   font-family:var(--f-display);
   font-size:clamp(46px,5.4vw,86px);
@@ -266,7 +267,7 @@ section{width:100%;}
 }
 @media(max-width:900px){
   .hero-intro{grid-template-columns:1fr;min-height:0;}
-  .hero-intro-inner{padding:96px 28px 24px;max-width:none;}
+  .hero-intro-inner{padding:96px 28px 24px;max-width:none;margin-left:0;}
   .hero-intro .hero-visual{height:76vw;min-height:300px;}
   .hero-intro .hero-block-card{width:auto;max-width:360px;margin-top:28px;}
 }
@@ -345,7 +346,7 @@ section{width:100%;}
   font-size:14px;font-weight:500;color:rgba(255,255,255,0.92);
   letter-spacing:0.03em;font-variant-numeric:tabular-nums;
 }
-.ticker-val .accent{color:var(--accent);}
+.ticker-val.accent{color:var(--accent);}
 @media(max-width:760px){.ticker-inner{justify-content:flex-start;overflow-x:auto;padding:0 20px;}}
 
 /* ============ Shared section heads ============ */

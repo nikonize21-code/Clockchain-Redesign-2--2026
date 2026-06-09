@@ -1,61 +1,40 @@
-# Clockchain — Merged site (for GitHub)
+# Clockchain — GitHub Update (drop-in)
 
-This is the **complete, self-contained new merged Clockchain website**, ready to
-commit. Every asset it needs is included and all links are wired for this folder
-layout, so it runs as-is (open `index.html`, or drop the whole folder into your repo).
-
-> Note: this is the **merged** site only. Your previous (root `index.html`) site
-> was left untouched.
-
-## Folder structure
+These are the **4 changed files** for the merged site, named and laid out exactly as
+they sit in your repo (the `clockchain-merged-site` / GitHub structure where the
+homepage is **`index.html`**). Replace the matching files at the **repo root** and commit.
 
 ```
-index.html                     ← homepage
-styles.css                     ← site styles (incl. NYC video hero + nav)
-app.js                         ← nav scroll, reveal-on-scroll, ticker, modal
-globe.js                       ← hero/intro globe visual
-tweaks-panel.jsx               ← optional in-page Tweaks panel (see note)
-tweaks-app.jsx                 ← optional in-page Tweaks panel (see note)
-blog-base.css                  ← base styles for the blog article
-blog/
-  brief-history-of-time.html   ← linked from the Blog section
-assets/
-  favicon-32.png, favicon-512.png, apple-touch-icon.png
-  clockchain-logo-full.png
-  newyork-timelapse.mp4        ← hero background video (6.7 MB)
-  media/                       ← press/media logos & thumbnails
-  blog/                        ← blog article + listing images
+index.html        ← homepage  (was "Clockchain - Merged.html" in the working copy)
+styles.css
+globe.js
+tweaks-app.jsx
 ```
 
-## What changed this session
-
-1. **Hero background video** — New York day-to-night timelapse loop replaces the
-   static skyline. Light statement text + scrim for legibility.
-2. **Nav adapts over the video** — links turn light (and the X icon becomes white)
-   while over the hero, then revert to dark once you scroll onto the page.
-3. **Removed the "Press coverage" pill** from the Media subhead.
-4. **Renamed the blog heading** to **"Clockchain Blog"**.
-5. **Removed the media-card coverage tags** ("Featured coverage", "Exchange
-   coverage", "Press release"). The "Latest release" tag on the press lead stays.
-
-## Two things worth knowing
-
-- **`blog-base.css` vs `styles.css`** — the homepage uses `styles.css`; the blog
-  article uses `blog-base.css`. They're kept separate on purpose (the article was
-  authored against its own base tokens). Both are included.
-- **Tweaks panel** — `tweaks-panel.jsx` / `tweaks-app.jsx` power the optional
-  in-page tweak controls and load React/Babel at the bottom of `index.html`. They
-  don't show unless toggled, so they're harmless in production — but if you'd like
-  a leaner build, say the word and I'll strip them (remove the 5 script tags + the
-  `#tweaks-root` div + the two `.jsx` files).
+> Note on naming: in the project the working file is **`merged/Clockchain - Merged.html`**,
+> but the committed repo file is **`index.html`**. They are the same page — this package
+> uses the repo name (`index.html`) so it drops straight in. No other files changed
+> (`app.js`, `tweaks-panel.jsx`, `blog-base.css`, `blog/`, and `assets/` are untouched).
 
 ## Suggested commit message
 
 ```
-New merged Clockchain site: NYC video hero + News/Media + blog tidy-up
+Refine brand green + fix globe labels, hero alignment, footer logo link
 
-- Hero: NYC day-to-night timelapse background video, nav adapts over it
-- Remove "Press coverage" pill from Media subhead
-- Rename blog heading to "Clockchain Blog"
-- Remove media-card coverage tags (keep "Latest release")
+- Unify all greens to one --accent token; default to refined #0A9D44
+  (logo #00CC00 + emerald #0A9D6E selectable via Tweaks); globe follows accent
+- Fix ticker Block Height value not turning green (compound-class selector)
+- Align hero intro copy to the section rail without shifting the globe
+- Add collision avoidance to globe city labels (no more overlap)
+- Footer logo links to top; cache-bust styles.css v8 / globe.js v4
 ```
+
+## What changed
+- **Brand green** unified to one `--accent` token; default is a slightly darker,
+  more legible green `#0A9D44`. Exact logo green `#00CC00` and emerald `#0A9D6E`
+  remain in **Tweaks → Accent**. Globe wireframe follows the accent.
+- **Ticker** "Block Height" value now renders green (selector fix).
+- **Hero** intro copy aligned to the section rail; globe keeps the full right side.
+- **Globe** city labels no longer overlap (collision avoidance added).
+- **Footer logo** links back to top.
+- Cache-bust: `styles.css?v=8`, `globe.js?v=4`.

@@ -203,44 +203,63 @@
       var tzCol=dark?'rgba(255,255,255,0.5)':'#86868b';
       var accentCol=cssVar('--accent','#2d7a4f');
 
+      /* ---- PASS 1: gather every label that is currently facing the viewer ---- */
+      var visLabels=[];
       CAPITALS.forEach(function(cap){
         var tzRad=cap.tzM*Math.PI/180,tzWorldZ=Math.sin(tzRad+gy);
         if(tzWorldZ<0.70)return;
-        var localPt=ll2v(cap.lon,cap.lat,R);
-        var worldPt=localPt.clone().applyEuler(globe.rotation);
-        var proj=project(worldPt);if(proj.z>1.0)return;
+        var worldPt=ll2v(cap.lon,cap.lat,R).applyEuler(globe.rotation);
+        var sp=project(worldPt);if(sp.z>1.0)return;
+        var op=project(ll2v(cap.lon,cap.lat,R*1.18).applyEuler(globe.rotation));
         var alpha=Math.min(1,Math.max(0,(tzWorldZ-0.70)/0.15));
         var timeStr=formatTime(utcH,cap.tz),tzStr='UTC'+(cap.tz>=0?'+':'')+cap.tz;
-        var surfPt=worldPt.clone();
-        var outerPt=ll2v(cap.lon,cap.lat,R*1.18).applyEuler(globe.rotation);
-        var sp=project(surfPt),op=project(outerPt);
-        var labelAnchor=op.x>W/2?'left':'right';
-
-        lctx.globalAlpha=alpha*0.85;lctx.strokeStyle=accentCol;lctx.lineWidth=1;lctx.setLineDash([2,3]);
-        lctx.beginPath();lctx.moveTo(sp.x,sp.y);lctx.lineTo(op.x,op.y);lctx.stroke();lctx.setLineDash([]);
-        lctx.fillStyle=accentCol;lctx.beginPath();lctx.arc(sp.x,sp.y,2.5,0,Math.PI*2);lctx.fill();
-
-        lctx.globalAlpha=alpha*0.94;
+        var anchor=op.x>W/2?'left':'right';
         lctx.font='bold 10px Inter,sans-serif';var nameW=lctx.measureText(cap.n).width;
         lctx.font='9px Inter,sans-serif';var timeW=lctx.measureText(timeStr).width,tzW=lctx.measureText(tzStr).width;
         var boxW=Math.max(nameW,timeW,tzW)+14,boxH=42;
-        var bx=labelAnchor==='left'?op.x+4:op.x-4-boxW,by=op.y-boxH/2,rx=6;
-        /* keep the whole label box inside the canvas so edge cities don't get clipped */
-        var pad=6;
-        bx=Math.max(pad,Math.min(bx,W-boxW-pad));
-        by=Math.max(pad,Math.min(by,H-boxH-pad));
-        lctx.fillStyle=pillBg;lctx.strokeStyle=accentCol.replace(')',' / 0.4)').replace('rgb','rgba');lctx.lineWidth=1;
-        try{lctx.strokeStyle=accentCol;}catch(e){}
+        visLabels.push({
+          n:cap.n,sp:sp,alpha:alpha,timeStr:timeStr,tzStr:tzStr,anchor:anchor,
+          boxW:boxW,boxH:boxH,
+          bx:anchor==='left'?op.x+4:op.x-4-boxW,
+          by:op.y-boxH/2
+        });
+      });
+
+      /* ---- PASS 2: de-clutter — stack overlapping labels into a tidy column per side ---- */
+      var LPAD=6,LGAP=6;
+      ['left','right'].forEach(function(side){
+        var col=visLabels.filter(function(l){return l.anchor===side;});
+        col.sort(function(a,b){return a.by-b.by;});
+        for(var i=0;i<col.length;i++){
+          col[i].by=Math.max(LPAD,Math.min(col[i].by,H-col[i].boxH-LPAD));
+          if(i>0&&col[i].by<col[i-1].by+col[i-1].boxH+LGAP){col[i].by=col[i-1].by+col[i-1].boxH+LGAP;}
+        }
+        if(col.length){
+          var over=(col[col.length-1].by+col[col.length-1].boxH+LPAD)-H;
+          if(over>0){for(var k=0;k<col.length;k++){col[k].by=Math.max(LPAD,col[k].by-over);}}
+        }
+        col.forEach(function(l){l.bx=Math.max(LPAD,Math.min(l.bx,W-l.boxW-LPAD));});
+      });
+
+      /* ---- PASS 3: draw leader lines + pills ---- */
+      visLabels.forEach(function(l){
+        var a=l.alpha,rx=6,bx=l.bx,by=l.by,boxW=l.boxW,boxH=l.boxH;
+        var cx=l.anchor==='left'?bx:bx+boxW,cy=by+boxH/2;
+        lctx.globalAlpha=a*0.85;lctx.strokeStyle=accentCol;lctx.lineWidth=1;lctx.setLineDash([2,3]);
+        lctx.beginPath();lctx.moveTo(l.sp.x,l.sp.y);lctx.lineTo(cx,cy);lctx.stroke();lctx.setLineDash([]);
+        lctx.fillStyle=accentCol;lctx.beginPath();lctx.arc(l.sp.x,l.sp.y,2.5,0,Math.PI*2);lctx.fill();
+
         lctx.beginPath();
         lctx.moveTo(bx+rx,by);lctx.lineTo(bx+boxW-rx,by);lctx.arcTo(bx+boxW,by,bx+boxW,by+rx,rx);
         lctx.lineTo(bx+boxW,by+boxH-rx);lctx.arcTo(bx+boxW,by+boxH,bx+boxW-rx,by+boxH,rx);
         lctx.lineTo(bx+rx,by+boxH);lctx.arcTo(bx,by+boxH,bx,by+boxH-rx,rx);
         lctx.lineTo(bx,by+rx);lctx.arcTo(bx,by,bx+rx,by,rx);lctx.closePath();
-        lctx.globalAlpha=alpha*0.5;lctx.stroke();lctx.globalAlpha=alpha*0.94;lctx.fill();
+        lctx.fillStyle=pillBg;lctx.strokeStyle=accentCol;lctx.lineWidth=1;
+        lctx.globalAlpha=a*0.5;lctx.stroke();lctx.globalAlpha=a*0.94;lctx.fill();
 
-        lctx.fillStyle=nameCol;lctx.font='bold 10px Inter,sans-serif';lctx.textAlign='left';lctx.fillText(cap.n,bx+7,by+13);
-        lctx.fillStyle=accentCol;lctx.font='bold 11px Inter,sans-serif';lctx.fillText(timeStr,bx+7,by+26);
-        lctx.fillStyle=tzCol;lctx.font='9px Inter,sans-serif';lctx.fillText(tzStr,bx+7,by+38);
+        lctx.fillStyle=nameCol;lctx.font='bold 10px Inter,sans-serif';lctx.textAlign='left';lctx.fillText(l.n,bx+7,by+13);
+        lctx.fillStyle=accentCol;lctx.font='bold 11px Inter,sans-serif';lctx.fillText(l.timeStr,bx+7,by+26);
+        lctx.fillStyle=tzCol;lctx.font='9px Inter,sans-serif';lctx.fillText(l.tzStr,bx+7,by+38);
         lctx.globalAlpha=1;
       });
     }

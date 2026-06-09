@@ -51,7 +51,7 @@
 
     var scene=new THREE.Scene();
     var camera=new THREE.PerspectiveCamera(40,W/H,0.1,100);
-    camera.position.z=3.22;
+    camera.position.z=3.79;  /* globe sized ~15% smaller than the prior 3.22 */
 
     var R=1.0;
     var globe=new THREE.Group();scene.add(globe);

@@ -26,10 +26,11 @@ Use bright Clockchain green site-wide + green/layout/globe polish
 - Fix ticker Block Height value not turning green (compound-class selector)
 - Align hero intro copy to the section rail without shifting the globe
 - Collision-avoidant globe city labels (no more overlap)
-- Footer logo links to top; cache-bust styles.css v8 / globe.js v4
+- Footer logo links to top; cache-bust styles.css v8 / globe.js v5
 ```
 
 ## What changed
+- **Globe sized down ~15%** (camera distance `3.22 → 3.79`; labels track it).
 - **Brand green** is now the **bright Clockchain logo green `#00CC00`** site-wide,
   driven by a single `--accent` token. The hero "prove." word and the globe wireframe
   follow it. A darker `#0A9D44` and emerald `#0A9D6E` remain in **Tweaks → Accent**.

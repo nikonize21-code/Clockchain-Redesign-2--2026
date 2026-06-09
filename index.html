@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-variant="daylight" data-accent="forest" data-font="grotesk" data-bodyfont="inter" data-density="comfortable">
+<html lang="en" data-variant="daylight" data-accent="bright" data-font="grotesk" data-bodyfont="inter" data-density="comfortable">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,10 +26,10 @@
           root.setAttribute('data-embed','1');
           if(v==='eclipse'){setV('eclipse');root.setAttribute('data-accent','bright');}
           else if(v==='hybrid'){setV('hybrid');root.setAttribute('data-accent','bright');}
-          else{setV('daylight');root.setAttribute('data-accent','forest');}
+          else{setV('daylight');root.setAttribute('data-accent','bright');}
           return;
         }
-        var saved=JSON.parse(localStorage.getItem('clockchain-merged-tweaks')||'null');
+        var saved=JSON.parse(localStorage.getItem('clockchain-merged-tweaks-v2')||'null');
         if(saved){
           if(saved.variant)setV(saved.variant);
           if(saved.accent)root.setAttribute('data-accent',saved.accent);
@@ -38,7 +38,7 @@
         }
         if(v==='eclipse'||v==='hybrid'||v==='daylight'){
           setV(v);
-          root.setAttribute('data-accent', v==='daylight' ? 'forest' : 'bright');
+          root.setAttribute('data-accent', 'bright');
         }
       }catch(e){}
     })();

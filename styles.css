@@ -253,7 +253,7 @@ section{width:100%;}
   font-weight:600;line-height:0.99;letter-spacing:-0.04em;
   color:var(--fg);margin:24px 0 26px;text-wrap:balance;
 }
-.hero-intro h1 .muted{color:var(--fg-3);}
+.hero-intro h1 .muted{color:var(--accent);}
 .hero-intro .hero-sub{max-width:360px;}
 .hero-intro .hero-visual{
   position:relative;height:100vh;z-index:1;

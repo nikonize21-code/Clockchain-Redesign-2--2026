@@ -1,7 +1,7 @@
 /* Clockchain merged — Tweaks app (applies variant/accent/type/density to the page) */
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "variant": "daylight",
-  "accent": "forest",
+  "accent": "bright",
   "displayFont": "grotesk",
   "bodyFont": "inter",
   "density": "comfortable"
@@ -21,7 +21,7 @@ function applyTweaks(t){
   root.setAttribute('data-font', t.displayFont);
   root.setAttribute('data-bodyfont', t.bodyFont);
   root.setAttribute('data-density', t.density);
-  try { localStorage.setItem('clockchain-merged-tweaks', JSON.stringify({
+  try { localStorage.setItem('clockchain-merged-tweaks-v2', JSON.stringify({
     variant: t.variant,
     accent: t.accent, displayFont: t.displayFont, bodyFont: t.bodyFont, density: t.density
   })); } catch(e){}

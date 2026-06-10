@@ -32,6 +32,33 @@
     onScroll();
   }
 
+  /* scroll progress bar: rAF-throttled, recalculated on resize/orientation */
+  var progressEl=document.getElementById('scroll-progress');
+  if(progressEl){
+    var progTicking=false;
+    var updateProgress=function(){
+      var doc=document.documentElement;
+      var body=document.body;
+      var scrollTop=window.pageYOffset||doc.scrollTop||body.scrollTop||0;
+      var scrollHeight=Math.max(doc.scrollHeight,body.scrollHeight);
+      var clientHeight=window.innerHeight||doc.clientHeight;
+      var scrollable=scrollHeight-clientHeight;
+      var p=scrollable>0?scrollTop/scrollable:0;
+      if(p<0)p=0;if(p>1)p=1;
+      progressEl.style.transform='scaleX('+p+')';
+      progTicking=false;
+    };
+    var requestProgress=function(){
+      if(!progTicking){progTicking=true;requestAnimationFrame(updateProgress);}
+    };
+    window.addEventListener('scroll',requestProgress,{passive:true});
+    document.addEventListener('scroll',requestProgress,{passive:true,capture:true});
+    window.addEventListener('resize',requestProgress,{passive:true});
+    window.addEventListener('orientationchange',requestProgress);
+    window.addEventListener('load',updateProgress);
+    updateProgress();
+  }
+
   /* news / media modal */
   var ARTICLES={
     'pr-testnet-2026':{source:'Press Release',date:'February 24, 2026',tag:'Latest release',title:'Clockchain Opens Public Testnet, Introducing a New Blockchain-Based Global Time Standard',body:['The world\u2019s first blockchain-based time oracle is now open to developers. Clockchain combines atomic-clock precision with on-chain verifiability, producing a cryptographically signed timestamp every second.','The public testnet exposes three foundational services: secure timestamping and logging, smart-contract scheduling and execution, and a verifiable Timestamp API. Developers can begin integrating today.']},

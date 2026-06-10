@@ -405,10 +405,18 @@ section{width:100%;}
 }
 .sectors-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;}
 .sector-item{
-  padding:10px 30px;border-right:1px solid var(--line-2);
-  font-size:13px;font-weight:500;color:var(--fg-3);letter-spacing:0.02em;text-transform:uppercase;
+  /* affordance-honest: plain inline label, no box / border / interaction */
+  display:inline-flex;align-items:center;
+  font-family:var(--f-body);
+  font-size:14px;font-weight:400;color:var(--fg-2);
+  letter-spacing:0;text-transform:none;
 }
-.sector-item:last-child{border-right:none;}
+.sector-item:not(:last-child)::after{
+  content:"·";
+  margin:0 12px;
+  color:var(--fg-3);
+  font-weight:400;
+}
 
 /* ============ WHAT IS (2-col + live block) ============ */
 .what{padding:var(--band) 0;border-bottom:1px solid var(--line);}

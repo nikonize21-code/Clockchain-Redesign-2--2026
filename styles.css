@@ -28,8 +28,8 @@
   --f-mono:'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* ---- Section rhythm (overridable by data-density) ---- */
-  --band:clamp(96px,11vw,168px);
-  --band-sm:clamp(64px,7vw,96px);
+  --band:clamp(72px,8vw,120px);
+  --band-sm:clamp(48px,5.5vw,76px);
 
   /* ---- DAYLIGHT palette (default) ---- */
   --bg:#ffffff;
@@ -64,8 +64,8 @@
 :root[data-bodyfont="grotesk"]{ --f-body:'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
 
 /* ===== Density ===== */
-:root[data-density="compact"]{ --band:clamp(64px,7vw,104px); --band-sm:clamp(44px,5vw,68px); }
-:root[data-density="airy"]{ --band:clamp(120px,13vw,210px); --band-sm:clamp(80px,9vw,128px); }
+:root[data-density="compact"]{ --band:clamp(52px,5.5vw,84px); --band-sm:clamp(36px,4vw,56px); }
+:root[data-density="airy"]{ --band:clamp(96px,11vw,168px); --band-sm:clamp(64px,7vw,104px); }
 
 /* ===== ECLIPSE palette (dark) ===== */
 :root[data-variant="eclipse"]{
@@ -119,6 +119,31 @@ body{
 a{color:inherit;text-decoration:none;}
 img,svg{display:block;max-width:100%;}
 ::selection{background:var(--accent);color:#fff;}
+
+/* ============ Skip link (WCAG 2.4.1 Bypass Blocks) ============ */
+.skip-link{
+  position:fixed;
+  top:14px;left:14px;
+  /* fully off-screen above the viewport (incl. its own height + the 14px gap),
+     but still focusable — not display:none / visibility:hidden */
+  transform:translateY(calc(-100% - 28px));
+  z-index:2000;
+  padding:11px 20px;
+  font-family:var(--f-display);
+  font-size:14px;font-weight:600;letter-spacing:-0.01em;
+  color:#fff;background:var(--accent);
+  border-radius:10px;
+  /* no shadow in the hidden state so nothing bleeds below the top edge */
+  transition:transform .18s ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible{
+  transform:translateY(0);
+  box-shadow:0 8px 24px rgba(0,0,0,0.28);
+  outline:2px solid #fff;outline-offset:2px;
+}
+/* main is a programmatic focus target only — no persistent focus ring */
+main:focus{outline:none;}
 
 /* ============ Layout ============ */
 .container{max-width:1080px;margin:0 auto;padding:0 48px;}
@@ -177,13 +202,13 @@ section{width:100%;}
 :root[data-variant="eclipse"] .nav:not(.scrolled) .nav-socials a:hover{color:#fff;}
 .nav-socials svg{width:16px;height:16px;fill:currentColor;}
 /* brand-colored social icons */
-.nav-socials a[aria-label="Telegram"] svg{fill:#229ED9;}
-.nav-socials a[aria-label="Discord"] svg{fill:#5865F2;}
-.nav-socials a[aria-label="X"] svg{fill:#000;}
+.nav-socials a[aria-label*="Telegram"] svg{fill:#229ED9;}
+.nav-socials a[aria-label*="Discord"] svg{fill:#5865F2;}
+.nav-socials a[aria-label*="on X"] svg{fill:#000;}
 /* X icon is black \u2014 flip to white while over the dark video hero (before scroll) */
-.nav:not(.scrolled) .nav-socials a[aria-label="X"] svg{fill:#fff;}
+.nav:not(.scrolled) .nav-socials a[aria-label*="on X"] svg{fill:#fff;}
 .nav-socials a:hover svg{opacity:.82;}
-:root[data-variant="eclipse"] .nav-socials a[aria-label="X"] svg{fill:#fff;}
+:root[data-variant="eclipse"] .nav-socials a[aria-label*="on X"] svg{fill:#fff;}
 .nav-cta{
   display:inline-flex;align-items:center;gap:6px;
   font-size:13px;font-weight:500;
@@ -651,13 +676,13 @@ section{width:100%;}
 .cta{padding:var(--band) 0;text-align:center;}
 .cta-card{
   max-width:880px;margin:0 auto;padding:72px 56px;border-radius:28px;
-  background:var(--ink);color:#fff;position:relative;overflow:hidden;
+  background:var(--surface);color:var(--fg);border:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden;
 }
-.cta-card::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:520px;height:320px;background:radial-gradient(circle, color-mix(in oklab,var(--accent),transparent 75%), transparent 70%);pointer-events:none;}
+.cta-card::before{content:none;}
 .cta-card .tag{color:var(--accent);position:relative;}
 .cta-card h2{font-family:var(--f-display);font-size:clamp(30px,3.6vw,46px);font-weight:600;letter-spacing:-0.03em;line-height:1.05;margin:0 auto 18px;max-width:640px;position:relative;}
 .cta-card h2 em{font-style:normal;color:var(--accent);}
-.cta-card .sub{font-size:16.5px;line-height:1.6;color:rgba(255,255,255,0.6);max-width:480px;margin:0 auto 34px;position:relative;}
+.cta-card .sub{font-size:16.5px;line-height:1.6;color:var(--fg-2);max-width:480px;margin:0 auto 34px;position:relative;}
 .cta-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;position:relative;}
 
 /* ============ FOOTER ============ */
@@ -675,10 +700,10 @@ section{width:100%;}
 .footer-socials a{color:var(--fg-3);transition:color .15s;}
 .footer-socials a:hover{color:var(--accent);}
 .footer-socials svg{width:17px;height:17px;fill:currentColor;}
-.footer-socials a[aria-label="Telegram"] svg{fill:#229ED9;}
-.footer-socials a[aria-label="Discord"] svg{fill:#5865F2;}
-.footer-socials a[aria-label="X"] svg{fill:var(--fg);}
-.footer-socials a[aria-label="Email"] svg{fill:var(--fg-3);}
+.footer-socials a[aria-label*="Telegram"] svg{fill:#229ED9;}
+.footer-socials a[aria-label*="Discord"] svg{fill:#5865F2;}
+.footer-socials a[aria-label*="on X"] svg{fill:var(--fg);}
+.footer-socials a[aria-label*="Email"] svg{fill:var(--fg-3);}
 .footer-socials a:hover svg{opacity:.82;}
 @media(max-width:760px){.footer-top{grid-template-columns:1fr 1fr;}}
 

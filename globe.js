@@ -45,8 +45,9 @@
     if(typeof THREE==='undefined'){setTimeout(init,80);return;}
 
     var W=wrap.clientWidth,H=wrap.clientHeight;
-    var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    var MOBILE=!!(window.matchMedia&&window.matchMedia('(max-width:760px)').matches);
+    var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:!MOBILE,alpha:true});
+    renderer.setPixelRatio(MOBILE?1:Math.min(window.devicePixelRatio,2));
     renderer.setSize(W,H);renderer.setClearColor(0,0);
 
     var scene=new THREE.Scene();
@@ -98,6 +99,7 @@
       var phi=latD*Math.PI/180,cosP=Math.cos(phi),sinP=Math.sin(phi),rr=R*cosP;
       var pts=[];for(var i=0;i<=180;i++){var t=(i/180)*Math.PI*2;pts.push(new THREE.Vector3(rr*Math.cos(t),R*sinP,rr*Math.sin(t)));}
       var isEq=(latD===0),isMaj=(latD%10===0);
+      if(MOBILE&&!isEq&&!isMaj)continue;
       if(isEq){
         globe.add(makeFatLine(pts,cBase,0.7,BLACK_W).line);
       }else{
@@ -111,6 +113,7 @@
       var lonR=lonD*Math.PI/180,pts2=[];
       for(var i2=0;i2<=180;i2++){var a=(i2/180)*Math.PI*2;pts2.push(new THREE.Vector3(R*Math.sin(a)*Math.cos(lonR),R*Math.cos(a),R*Math.sin(a)*Math.sin(lonR)));}
       var isTZ=(((lonD+180)%15)===0),isMaj2=(lonD%10===0);
+      if(MOBILE&&!isTZ&&!isMaj2)continue;
       if(isTZ){
         var fl=makeFatLine(pts2,cBase,0.7,BLACK_W);
         globe.add(fl.line);
@@ -127,12 +130,12 @@
     function addPolyLine(coords){
       if(!coords||coords.length<2)return;
       var lats=coords.map(function(c){return c[1];});
-      if(Math.max.apply(null,lats)-Math.min.apply(null,lats)<2.0)return;
+      if(Math.max.apply(null,lats)-Math.min.apply(null,lats)<(MOBILE?5.0:2.0))return;
       var pts=[];
       for(var i=0;i<coords.length;i++){
         if(i>0){
           var p0=coords[i-1],p1=coords[i];
-          var steps=Math.max(1,Math.round(Math.sqrt(Math.pow(p1[0]-p0[0],2)+Math.pow(p1[1]-p0[1],2))/1.5));
+          var steps=Math.max(1,Math.round(Math.sqrt(Math.pow(p1[0]-p0[0],2)+Math.pow(p1[1]-p0[1],2))/(MOBILE?3.5:1.5)));
           for(var s=(i===1?0:1);s<=steps;s++){var t=s/steps;pts.push(ll2v(p0[0]+(p1[0]-p0[0])*t,p0[1]+(p1[1]-p0[1])*t));}
         }
       }
@@ -171,12 +174,14 @@
 
     function project(v3){var v=v3.clone().project(camera);return {x:(v.x*0.5+0.5)*W,y:(-v.y*0.5+0.5)*H,z:v.z};}
 
-    var autoSpeed=0.0000148,lastT=null;
+    var autoSpeed=0.0000148,lastT=null,lastDraw=0;
     function getUTCDecimalHour(){var n=new Date();return n.getUTCHours()+n.getUTCMinutes()/60+n.getUTCSeconds()/3600+n.getUTCMilliseconds()/3600000;}
     function formatTime(utcH,tz){var h=((utcH+tz)%24+24)%24;var hh=Math.floor(h),mm=Math.floor((h-hh)*60);var ap=hh>=12?'PM':'AM',h12=hh%12||12;return (h12<10?'0':'')+h12+':'+(mm<10?'0':'')+mm+' '+ap;}
 
     function animate(ts){
       requestAnimationFrame(animate);
+      if(MOBILE&&lastDraw&&ts-lastDraw<33){return;}
+      lastDraw=ts;
       if(lastT===null)lastT=ts;var dt=ts-lastT;lastT=ts;
       globe.rotation.y+=autoSpeed*dt;var gy=globe.rotation.y;
 

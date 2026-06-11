@@ -32,6 +32,29 @@
     onScroll();
   }
 
+  /* mobile menu toggle (hamburger → full-screen slide-in) */
+  var burger=document.getElementById('nav-burger');
+  var mobileMenu=document.getElementById('mobile-menu');
+  if(burger&&mobileMenu){
+    var setMenu=function(open){
+      document.body.classList.toggle('menu-open',open);
+      burger.setAttribute('aria-expanded',open?'true':'false');
+      burger.setAttribute('aria-label',open?'Close menu':'Open menu');
+      mobileMenu.setAttribute('aria-hidden',open?'false':'true');
+      document.body.style.overflow=open?'hidden':'';
+    };
+    burger.addEventListener('click',function(){setMenu(!document.body.classList.contains('menu-open'));});
+    mobileMenu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.body.classList.contains('menu-open'))setMenu(false);});
+    window.addEventListener('resize',function(){if(window.innerWidth>860&&document.body.classList.contains('menu-open'))setMenu(false);});
+  }
+
+  /* mobile: drop the autoplay hero video so it never downloads — the CSS poster shows instead */
+  if(window.matchMedia&&window.matchMedia('(max-width:760px)').matches){
+    var hv=document.querySelector('.hero-video');
+    if(hv){try{hv.pause();}catch(e){} hv.removeAttribute('autoplay');hv.removeAttribute('src');try{hv.load();}catch(e){} hv.remove();}
+  }
+
   /* scroll progress bar: rAF-throttled, recalculated on resize/orientation */
   var progressEl=document.getElementById('scroll-progress');
   if(progressEl){

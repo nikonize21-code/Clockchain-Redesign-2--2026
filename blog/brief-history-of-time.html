@@ -530,6 +530,7 @@
       .entry-body { font-size: 16.5px; }
       .entry-img-wide, .entry-img-pair { max-width: 100%; }
       .entry.featured .featured-grid { grid-template-columns: 1fr; gap: 20px; }
+      .entry.featured.featured-grow .featured-grid { grid-template-columns: 1fr; gap: 20px; }
       .entry.climax { padding: 28px 22px; }
       .entry.climax .climax-grid { grid-template-columns: 1fr; gap: 24px; }
       .entry.climax .entry-year { font-size: 26px; }
@@ -537,6 +538,35 @@
       .article-foot { padding: 56px 22px 80px; }
       .article-foot-grid { grid-template-columns: 1fr; gap: 24px; }
       .article-back-inner { padding: 14px 22px; }
+    }
+
+    @media (max-width: 600px) {
+      .article-back-inner { padding: 12px 18px; }
+      .article-back-link { font-size: 11.5px; }
+      .article-back-logo img { height: 28px; }
+      .article-header { padding: 44px 18px 28px; }
+      .article-eyebrow { margin-bottom: 22px; font-size: 11px; flex-wrap: wrap; }
+      .article-title { font-size: clamp(30px, 8.5vw, 40px); margin-bottom: 20px; }
+      .article-dek { font-size: 17px; margin-bottom: 26px; }
+      .article-meta { gap: 8px 12px; padding-top: 20px; font-size: 11.5px; }
+      .hero-figure { padding: 0 18px; margin-bottom: 48px; }
+      .hero-caption { grid-template-columns: 1fr; gap: 8px; }
+      .timeline-wrap { padding: 0 18px 64px; }
+      .era { padding: 32px 0 10px; }
+      .entry { padding: 22px 0 28px; }
+      /* let long year labels wrap instead of pushing the page sideways */
+      .entry-year { display: flex; flex-wrap: wrap; align-items: center; font-size: 21px; gap: 12px; }
+      .entry-body { font-size: 16px; }
+      .entry-img-pair { gap: 10px; }
+      .entry.climax { padding: 24px 18px; border-radius: 14px; }
+      .entry.climax .entry-year { font-size: 24px; }
+      .entry.climax .climax-cta { display: flex; width: 100%; justify-content: center; }
+      .article-foot { padding: 48px 18px 72px; }
+    }
+
+    @media (max-width: 400px) {
+      .entry-img-pair { grid-template-columns: 1fr; }
+      .entry-img-pair .pair-cell { aspect-ratio: 16 / 10; }
     }
 
     @media (prefers-reduced-motion: reduce) {

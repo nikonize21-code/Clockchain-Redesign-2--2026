@@ -4,7 +4,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "accent": "bright",
   "displayFont": "grotesk",
   "bodyFont": "inter",
-  "density": "comfortable"
+  "density": "comfortable",
+  "heroBtn": "solid"
 }/*EDITMODE-END*/;
 
 function applyTweaks(t){
@@ -21,9 +22,11 @@ function applyTweaks(t){
   root.setAttribute('data-font', t.displayFont);
   root.setAttribute('data-bodyfont', t.bodyFont);
   root.setAttribute('data-density', t.density);
+  root.setAttribute('data-herobtn', t.heroBtn);
   try { localStorage.setItem('clockchain-merged-tweaks-v2', JSON.stringify({
     variant: t.variant,
-    accent: t.accent, displayFont: t.displayFont, bodyFont: t.bodyFont, density: t.density
+    accent: t.accent, displayFont: t.displayFont, bodyFont: t.bodyFont, density: t.density,
+    heroBtn: t.heroBtn
   })); } catch(e){}
   if (typeof window.__recolorGlobe === 'function') {
     // let CSS vars settle, then recolor the three.js materials
@@ -38,7 +41,8 @@ function readInitial(){
     accent: root.getAttribute('data-accent') || TWEAK_DEFAULTS.accent,
     displayFont: root.getAttribute('data-font') || TWEAK_DEFAULTS.displayFont,
     bodyFont: root.getAttribute('data-bodyfont') || TWEAK_DEFAULTS.bodyFont,
-    density: root.getAttribute('data-density') || TWEAK_DEFAULTS.density
+    density: root.getAttribute('data-density') || TWEAK_DEFAULTS.density,
+    heroBtn: root.getAttribute('data-herobtn') || TWEAK_DEFAULTS.heroBtn
   });
 }
 
@@ -67,6 +71,11 @@ function TweaksApp(){
       <TweakRadio label="Density" value={t.density}
         options={['compact','comfortable','airy']}
         onChange={(v)=>setTweak('density', v)} />
+
+      <TweakSection label="Hero button" />
+      <TweakRadio label="Style" value={t.heroBtn}
+        options={['solid','white','clear']}
+        onChange={(v)=>setTweak('heroBtn', v)} />
     </TweaksPanel>
   );
 }

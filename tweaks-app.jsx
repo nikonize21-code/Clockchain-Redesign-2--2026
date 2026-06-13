@@ -5,7 +5,8 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "displayFont": "grotesk",
   "bodyFont": "inter",
   "density": "comfortable",
-  "heroBtn": "solid"
+  "heroBtn": "solid",
+  "globeFill": 20
 }/*EDITMODE-END*/;
 
 function applyTweaks(t){
@@ -23,10 +24,12 @@ function applyTweaks(t){
   root.setAttribute('data-bodyfont', t.bodyFont);
   root.setAttribute('data-density', t.density);
   root.setAttribute('data-herobtn', t.heroBtn);
+  root.setAttribute('data-globefill', t.globeFill);
+  if (typeof window.__setGlobeFill === 'function') window.__setGlobeFill(t.globeFill / 100);
   try { localStorage.setItem('clockchain-merged-tweaks-v2', JSON.stringify({
     variant: t.variant,
     accent: t.accent, displayFont: t.displayFont, bodyFont: t.bodyFont, density: t.density,
-    heroBtn: t.heroBtn
+    heroBtn: t.heroBtn, globeFill: t.globeFill
   })); } catch(e){}
   if (typeof window.__recolorGlobe === 'function') {
     // let CSS vars settle, then recolor the three.js materials
@@ -42,7 +45,8 @@ function readInitial(){
     displayFont: root.getAttribute('data-font') || TWEAK_DEFAULTS.displayFont,
     bodyFont: root.getAttribute('data-bodyfont') || TWEAK_DEFAULTS.bodyFont,
     density: root.getAttribute('data-density') || TWEAK_DEFAULTS.density,
-    heroBtn: root.getAttribute('data-herobtn') || TWEAK_DEFAULTS.heroBtn
+    heroBtn: root.getAttribute('data-herobtn') || TWEAK_DEFAULTS.heroBtn,
+    globeFill: (function(){ var a = parseFloat(root.getAttribute('data-globefill')); return isNaN(a) ? TWEAK_DEFAULTS.globeFill : a; })()
   });
 }
 
@@ -76,6 +80,10 @@ function TweaksApp(){
       <TweakRadio label="Style" value={t.heroBtn}
         options={['solid','white','clear']}
         onChange={(v)=>setTweak('heroBtn', v)} />
+
+      <TweakSection label="Globe" />
+      <TweakSlider label="Fill opacity" value={t.globeFill} min={0} max={100} step={1} unit="%"
+        onChange={(v)=>setTweak('globeFill', v)} />
     </TweaksPanel>
   );
 }
